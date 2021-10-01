@@ -16,7 +16,8 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Repeat Password', validators=[
+                              DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -45,5 +46,12 @@ class EditProfileForm(FlaskForm):
             if user is not None:
                 raise ValidationError('Please use a differet username.')
                 
+                
+class PostForm(FlaskForm):
+    post = TextAreaField('How is your day?', validators=[
+                         DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField('Post')
+                
+      
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
