@@ -1,7 +1,7 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, DataRequired, Length
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length, Regexp
 from app.models import User
 
 
@@ -15,7 +15,8 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(
+        min=10, max=128, message="Password must be minimum 10 characters."), Regexp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])$", message="Password must have at least 1 upper case, 1 lower case and 1 number.")])
     password2 = PasswordField('Repeat Password', validators=[
                               DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
@@ -23,12 +24,12 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Please use a different username.')
+            raise ValidationError('Invalid username!')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('Invalid email address!')
 
 
 class EditProfileForm(FlaskForm):
@@ -44,7 +45,7 @@ class EditProfileForm(FlaskForm):
         if username.data != self.original_username:
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
-                raise ValidationError('Please use a differet username.')
+                raise ValidationError('Invalid username!')
 
 
 class PostForm(FlaskForm):
