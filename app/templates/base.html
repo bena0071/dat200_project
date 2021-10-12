@@ -2,16 +2,16 @@
 <html>
 	<head>
         {% if title %}
-		<title>{{ title }} - Microblog</title>
+		<title>{{ title }} - SigmaNet</title>
 		{% else %}
-		<title>Welcome to Microblog</title>
+		<title>Welcome to SigmaNet</title>
 		{% endif %}
 	</head>
 	<body>
 		<div>
-			Microblog:
+			SigmaNet:
 			<a href="{{ url_for('index') }}">Home</a>
-			<a href="{{ url_for('explore') }}">Explore</a>
+			<a href="{{ url_for('explore') }}">People</a>
 			{% if current_user.is_anonymous %}
 			<a href="{{ url_for('login') }}">Login</a>
 			{% else %}
