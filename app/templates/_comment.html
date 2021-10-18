@@ -1,0 +1,5 @@
+<table>
+    <tr valign="top">
+        <td><a href="{{ url_for('user', username=comment.author.username) }}">{{ comment.author.username }}</a> replied:<br>{{ comment.body }}</td>
+    </tr>
+</table>
