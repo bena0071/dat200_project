@@ -1,5 +1,7 @@
 <table>
 	<tr valign="top">
-		<td><a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a> says:<br>{{ post.body }}</td>
+		<td><a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a> says:<br>
+			<a style="text-decoration:none; color:inherit" href="{{url_for('post', post_id=post.id) }}">{{ post.body }}</a>
+		</td>
 	</tr>
 </table>

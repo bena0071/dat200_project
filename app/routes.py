@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, EmptyForm
-from app.models import User, Post
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, EmptyForm, CommentForm
+from app.models import User, Post, Comment
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -91,3 +91,20 @@ def edit_profile():
 def explore():
     users = User.query.all()
     return render_template('explore.html', title='People', users=users)
+
+
+@app.route('/post/<post_id>', methods=['GET', 'POST'])
+@login_required
+def post(post_id=None):
+    postid = request.args.get('post', post_id)
+    post = Post.query.filter_by(id=postid).first_or_404()
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(body=form.comment.data,
+                          author=current_user, post=post)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment was successful!')
+        return redirect(url_for('post', post_id=post.id))
+    comments = post.comments.order_by(Comment.timestamp.asc())
+    return render_template('comments.html', title='Write a comment', post=post, form=form, comments=comments)
