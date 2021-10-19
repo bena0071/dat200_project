@@ -7,7 +7,7 @@
 			<h1>User: {{ user.username }}</h1>
 			{% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
 			{% if user == current_user %}
-			<p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+				<p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
 			{% endif %}
 		</td>
 	</tr>
@@ -16,4 +16,10 @@
 	{% for post in posts %}
 		{% include '_post.html' %}
 	{% endfor %}
+	{% if prev_url %}
+		<a href="{{ prev_url }}">Previous</a>
+	{% endif %}
+	{% if next_url %}
+		<a href="{{ next_url }}">Next</a>
+	{% endif %}
 {% endblock %}
