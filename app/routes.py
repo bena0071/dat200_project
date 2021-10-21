@@ -5,6 +5,8 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, EmptyForm, CommentForm
 from app.models import User, Post, Comment
 from sqlalchemy import func
+from datetime import datetime, timedelta
+from flask.globals import session
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -87,6 +89,8 @@ def user(username):
     else:
         prev_url = None
     form = EmptyForm()
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=5)
     return render_template('user.html', user=user, posts=posts.items, form=form, next_url=next_url, prev_url=prev_url)
 
 
