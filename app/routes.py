@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
@@ -6,7 +6,6 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, Em
 from app.models import User, Post, Comment
 from sqlalchemy import func
 from datetime import timedelta
-from flask.globals import session
 
 
 @app.route('/', methods=['GET', 'POST'])
