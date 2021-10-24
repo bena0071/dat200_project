@@ -8,8 +8,8 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     RECAPTCHA_USE_SLL = False
-    RECAPTCHA_PUBLIC_KEY = "6LdoUK4cAAAAAL5mcru6hcfpKmP8CBugJS8M-uEx"
-    RECAPTCHA_PRIVATE_KEY = "6LdoUK4cAAAAAArrnU_-Ggdm2E4LdU4AoSUd1j5q"
+    RECAPTCHA3_PUBLIC_KEY = "6LeuMsMcAAAAAJ4BIp_YEr254_bljnCTH9SWrOY4"
+    RECAPTCHA3_PRIVATE_KEY = "6LeuMsMcAAAAAHLg4ZHovJMJBidpo_LwcCZGSq6K"
     RECAPTCHA_OPTIONS = {'theme': 'black'}
     POSTS_PER_PAGE = 15
     COMMENTS_PER_PAGE = 10
