@@ -1,13 +1,15 @@
 from flask.app import Flask
-from flask_wtf import FlaskForm, RecaptchaField
+from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
+from flask_recaptcha.recaptcha3 import Recaptcha3Field
 
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
+    recaptcha = Recaptcha3Field(action="Login", execute_on_load=True)
     submit = SubmitField('Sign In')
 
 
@@ -15,10 +17,10 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(
-        min=12, max=128, message="Password must have at least 12 characters.")])
+        min=8, max=64, message="Password must have at least 8 characters.")])
     password2 = PasswordField('Repeat Password', validators=[
                               DataRequired(), EqualTo('password')])
-    recaptcha = RecaptchaField()
+    recaptcha = Recaptcha3Field(action="Register", execute_on_load=True)
     submit = SubmitField('Register')
 
     def validate_username(self, username):
