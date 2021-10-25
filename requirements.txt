@@ -14,7 +14,6 @@ coverage==5.5
 cryptography==2.8
 dbus-python==1.2.16
 distro==1.4.0
-distro-info===0.23ubuntu1
 dnspython==2.1.0
 dominate==2.4.0
 email-validator==1.1.3
