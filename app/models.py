@@ -2,12 +2,11 @@ from flask import Flask
 from datetime import datetime
 from app import db, login
 from flask_login import UserMixin
-#from werkzeug.security import generate_password_hash, check_password_hash
-#from flask_argon2.Argon2 import generate_password_hash, check_password_hash
 from flask_argon2 import Argon2
 
 app = Flask(__name__)
 argon2 = Argon2(app)
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
